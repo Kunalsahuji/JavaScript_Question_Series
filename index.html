@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple JS Projects</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6 font-sans">
+  <!-- To-Do List -->
+  <section class="mb-12">
+    <h2 class="text-2xl font-bold mb-4">To-Do List</h2>
+    <div class="bg-white p-6 rounded shadow">
+      <div class="flex items-center mb-4">
+        <input id="todoInput" type="text" class="border rounded p-2 flex-grow mr-4" placeholder="Add a new task">
+        <button onclick="addTask()" class="bg-blue-500 text-white px-4 py-2 rounded">Add</button>
+      </div>
+      <ul id="todoList" class="list-disc pl-5"></ul>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section class="mb-12">
+    <h2 class="text-2xl font-bold mb-4">Calculator</h2>
+    <div class="bg-white p-6 rounded shadow">
+      <div class="flex items-center mb-4">
+        <input id="calcInput1" type="number" class="border rounded p-2 flex-grow mr-2" placeholder="Number 1">
+        <input id="calcInput2" type="number" class="border rounded p-2 flex-grow ml-2" placeholder="Number 2">
+      </div>
+      <div class="flex space-x-4 mb-4">
+        <button onclick="calculate('+')" class="bg-green-500 text-white px-4 py-2 rounded">+</button>
+        <button onclick="calculate('-')" class="bg-yellow-500 text-white px-4 py-2 rounded">-</button>
+        <button onclick="calculate('*')" class="bg-blue-500 text-white px-4 py-2 rounded">*</button>
+        <button onclick="calculate('/')" class="bg-red-500 text-white px-4 py-2 rounded">/</button>
+      </div>
+      <p id="calcResult" class="text-lg font-bold">Result: </p>
+    </div>
+  </section>
+
+  <!-- Shopping Cart -->
+  <section>
+    <h2 class="text-2xl font-bold mb-4">Shopping Cart</h2>
+    <div class="bg-white p-6 rounded shadow">
+      <div class="flex items-center mb-4">
+        <input id="itemInput" type="text" class="border rounded p-2 flex-grow mr-4" placeholder="Item name">
+        <input id="priceInput" type="number" class="border rounded p-2 flex-grow mr-4" placeholder="Price">
+        <button onclick="addItem()" class="bg-blue-500 text-white px-4 py-2 rounded">Add</button>
+      </div>
+      <ul id="cartList" class="list-disc pl-5 mb-4"></ul>
+      <p id="cartTotal" class="text-lg font-bold">Total: $0</p>
+    </div>
+  </section>
+
+  <script>
+    // To-Do List Functionality
+    function addTask() {
+      const taskInput = document.getElementById('todoInput');
+      const taskValue = taskInput.value.trim();
+      if (taskValue) {
+        const li = document.createElement('li');
+        li.textContent = taskValue;
+        li.className = 'flex justify-between items-center';
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Remove';
+        removeBtn.className = 'text-red-500 ml-4';
+        removeBtn.onclick = () => li.remove();
+        li.appendChild(removeBtn);
+        document.getElementById('todoList').appendChild(li);
+        taskInput.value = '';
+      }
+    }
+
+    // Calculator Functionality
+    function calculate(operator) {
+      const num1 = parseFloat(document.getElementById('calcInput1').value);
+      const num2 = parseFloat(document.getElementById('calcInput2').value);
+      let result;
+      if (isNaN(num1) || isNaN(num2)) {
+        result = 'Please enter valid numbers';
+      } else {
+        switch (operator) {
+          case '+': result = num1 + num2; break;
+          case '-': result = num1 - num2; break;
+          case '*': result = num1 * num2; break;
+          case '/': result = num2 !== 0 ? num1 / num2 : 'Cannot divide by zero'; break;
+        }
+      }
+      document.getElementById('calcResult').textContent = `Result: ${result}`;
+    }
+
+    // Shopping Cart Functionality
+    let total = 0;
+    function addItem() {
+      const itemInput = document.getElementById('itemInput');
+      const priceInput = document.getElementById('priceInput');
+      const itemName = itemInput.value.trim();
+      const itemPrice = parseFloat(priceInput.value);
+
+      if (itemName && !isNaN(itemPrice)) {
+        const li = document.createElement('li');
+        li.textContent = `${itemName} - $${itemPrice.toFixed(2)}`;
+        li.className = 'flex justify-between items-center';
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Remove';
+        removeBtn.className = 'text-red-500 ml-4';
+        removeBtn.onclick = () => {
+          li.remove();
+          total -= itemPrice;
+          document.getElementById('cartTotal').textContent = `Total: $${total.toFixed(2)}`;
+        };
+        li.appendChild(removeBtn);
+        document.getElementById('cartList').appendChild(li);
+        total += itemPrice;
+        document.getElementById('cartTotal').textContent = `Total: $${total.toFixed(2)}`;
+        itemInput.value = '';
+        priceInput.value = '';
+      }
+    }
+  </script>
+</body>
+</html>
