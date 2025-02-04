@@ -1,5 +1,14 @@
 // Write a function that takes a string and returns the reversed string using a for loop.
-
+{
+    function reverseString(str) {
+        let reversed = "";
+        for (let i = str.length - 1; i >= 0; i--) {
+            reversed += str[i]
+        }
+        return reversed;
+    }
+    console.log(reverseString("hello")); // Output: "olleh"
+}
 
 // Filter Even Numbers:
 // Write a function that takes an array of numbers and returns a new array containing only the even numbers using forEach.
