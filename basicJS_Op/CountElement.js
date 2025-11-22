@@ -45,3 +45,24 @@
     }
     console.log(`Count of each element: `, counts);
 }
+{
+    let arr = [1, 2, 3, 1, 2, 3, 1, 2, 3]
+    let countMap = new Map();
+    for (let num of arr) {
+        if (countMap.has(num)) {
+            countMap.set(num, countMap.get(num) + 1);
+        } else {
+            countMap.set(num, 1);
+        }
+    }
+    console.log(`Count of each element: `, countMap);
+}
+{
+    let arr = [1, 2, 3, 1, 2, 3, 1, 2, 3]
+    let countObj = {};
+    for (let num of arr){
+        countObj[num] = countObj[num] ? countObj[num] + 1 : 1;
+
+    }
+    // console.log(`Count of each element: `, countObj);
+}
