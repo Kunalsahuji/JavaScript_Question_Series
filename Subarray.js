@@ -22,5 +22,5 @@
     }
 
     let nums = [1, 2, 2, 3, 1, 2];
-    console.log(longestElement(nums)); // Output: 5
+    console.log(longestElement(nums)); // Output: 3
 }
